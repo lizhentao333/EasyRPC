@@ -1,6 +1,8 @@
 package cn.lizhentao.rpc.client;
 
 import cn.lizhentao.rpc.entity.RpcRequest;
+import cn.lizhentao.rpc.entity.RpcResponse;
+import cn.lizhentao.rpc.enumeration.ResponseCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,10 +26,14 @@ public class RpcClient {
             ObjectInputStream objectInputStream = new ObjectInputStream(socket.getInputStream());
             objectOutputStream.writeObject(rpcRequest);
             objectOutputStream.flush();
-
-            return objectInputStream.readObject();
+            // 这里注意处理类型转换，需要对返回结果进行处理
+            RpcResponse resp = (RpcResponse)objectInputStream.readObject();
+            if (resp.getStatusCode() == ResponseCode.SUCCESS.getCode()) {
+                return resp.getData();
+            }
+            return resp.getMessage();
         } catch (IOException | ClassNotFoundException e) {
-            logger.error("调用时有错误发生：", e);
+            logger.error("sendRequest:调用时有错误发生：", e);
             return null;
         }
     }

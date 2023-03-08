@@ -1,6 +1,8 @@
 package cn.lizhentao.test;
 
 import cn.lizhentao.rpc.api.HelloService;
+import cn.lizhentao.rpc.registry.DefaultServiceRegistry;
+import cn.lizhentao.rpc.registry.ServiceRegistry;
 import cn.lizhentao.rpc.server.RpcServer;
 
 /**
@@ -11,7 +13,9 @@ import cn.lizhentao.rpc.server.RpcServer;
 public class TestServer {
     public static void main(String[] args) {
         HelloService helloService = new HelloServiceImpl();
-        RpcServer rpcServer = new RpcServer();
-        rpcServer.register(helloService, 9000);
+        ServiceRegistry serviceRegistry = new DefaultServiceRegistry();
+        serviceRegistry.register(helloService);
+        RpcServer rpcServer = new RpcServer(serviceRegistry);
+        rpcServer.start(9000);
     }
 }

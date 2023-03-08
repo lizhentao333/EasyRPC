@@ -1,7 +1,6 @@
 package cn.lizhentao.rpc.client;
 
 import cn.lizhentao.rpc.entity.RpcRequest;
-import cn.lizhentao.rpc.entity.RpcResponse;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -35,7 +34,6 @@ public class RpcClientProxy implements InvocationHandler {
                 .paramTypes(method.getParameterTypes())
                 .build();
         RpcClient client = new RpcClient();
-        return ((RpcResponse)client.sendRequest(rpcRequest, host, port)).getData();
-
+        return client.sendRequest(rpcRequest, host, port);
     }
 }

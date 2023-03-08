@@ -2,6 +2,7 @@ package cn.lizhentao.rpc.entity;
 
 import cn.lizhentao.rpc.enumeration.ResponseCode;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.awt.*;
 import java.io.Serializable;
@@ -12,6 +13,7 @@ import java.io.Serializable;
  * @description: 用于返回请求结果
  */
 @Data
+@NoArgsConstructor
 public class RpcResponse<T> implements Serializable {
     /**
      * 返回结果的状态码
@@ -34,6 +36,7 @@ public class RpcResponse<T> implements Serializable {
      */
     public static <T> RpcResponse<T> success(T data) {
         RpcResponse<T> response = new RpcResponse<>();
+        System.out.println(data.toString());
         response.setStatusCode(ResponseCode.SUCCESS.getCode());
         response.setData(data);
         return response;
