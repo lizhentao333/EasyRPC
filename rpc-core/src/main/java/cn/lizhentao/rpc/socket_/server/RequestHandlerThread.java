@@ -1,5 +1,6 @@
-package cn.lizhentao.rpc.server;
+package cn.lizhentao.rpc.socket_.server;
 
+import cn.lizhentao.rpc.RequestHandler;
 import cn.lizhentao.rpc.entity.RpcRequest;
 import cn.lizhentao.rpc.entity.RpcResponse;
 import cn.lizhentao.rpc.registry.ServiceRegistry;
@@ -9,8 +10,6 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.net.Socket;
 
 /**
@@ -21,9 +20,9 @@ import java.net.Socket;
 public class RequestHandlerThread implements Runnable{
     private static final Logger logger = LoggerFactory.getLogger(RequestHandlerThread.class);
 
-    private Socket socket;
-    private RequestHandler requestHandler;
-    private ServiceRegistry serviceRegistry;
+    private final Socket socket;
+    private final RequestHandler requestHandler;
+    private final ServiceRegistry serviceRegistry;
 
     public RequestHandlerThread(Socket socket, RequestHandler requestHandler, ServiceRegistry serviceRegistry) {
         this.socket = socket;

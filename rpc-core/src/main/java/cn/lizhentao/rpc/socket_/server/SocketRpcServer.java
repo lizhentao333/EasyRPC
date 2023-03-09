@@ -1,5 +1,7 @@
-package cn.lizhentao.rpc.server;
+package cn.lizhentao.rpc.socket_.server;
 
+import cn.lizhentao.rpc.RequestHandler;
+import cn.lizhentao.rpc.RpcServer;
 import cn.lizhentao.rpc.registry.ServiceRegistry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,9 +16,9 @@ import java.util.concurrent.*;
  * @date 2023/3/8 17:16
  * @description: 处理发送过来的rpc请求的服务端
  */
-public class RpcServer {
+public class SocketRpcServer implements RpcServer {
 
-    private static final Logger logger = LoggerFactory.getLogger(RpcServer.class);
+    private static final Logger logger = LoggerFactory.getLogger(SocketRpcServer.class);
 
     private static final int CORE_POOL_SIZE = 5;
     private static final int MAXIMUM_POOL_SIZE = 50;
@@ -24,16 +26,17 @@ public class RpcServer {
     private static final int BLOCKING_QUEUE_CAPACITY = 100;
     private final ExecutorService threadPool;
 
-    private RequestHandler requestHandler = new RequestHandler();
+    private final RequestHandler requestHandler = new RequestHandler();
     private final ServiceRegistry serviceRegistry;
 
-    public RpcServer(ServiceRegistry serviceRegistry) {
+    public SocketRpcServer(ServiceRegistry serviceRegistry) {
         this.serviceRegistry = serviceRegistry;
         BlockingQueue<Runnable> workingQueue = new ArrayBlockingQueue<>(BLOCKING_QUEUE_CAPACITY);
         ThreadFactory threadFactory = Executors.defaultThreadFactory();
         threadPool = new ThreadPoolExecutor(CORE_POOL_SIZE, MAXIMUM_POOL_SIZE, KEEP_ALIVE_TIME, TimeUnit.SECONDS, workingQueue, threadFactory);
     }
 
+    @Override
     public void start(int port) {
         try(ServerSocket serverSocket = new ServerSocket(port)) {
             logger.info("服务器正在启动...");

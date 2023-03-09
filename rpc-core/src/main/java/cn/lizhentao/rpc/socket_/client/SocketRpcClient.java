@@ -1,5 +1,6 @@
-package cn.lizhentao.rpc.client;
+package cn.lizhentao.rpc.socket_.client;
 
+import cn.lizhentao.rpc.RpcClient;
 import cn.lizhentao.rpc.entity.RpcRequest;
 import cn.lizhentao.rpc.entity.RpcResponse;
 import cn.lizhentao.rpc.enumeration.ResponseCode;
@@ -16,10 +17,18 @@ import java.net.Socket;
  * @date 2023/3/8 17:05
  * @description: 发送rpc请求的客户端
  */
-public class RpcClient {
-    private static final Logger logger = LoggerFactory.getLogger(RpcClient.class);
+public class SocketRpcClient implements RpcClient {
+    private static final Logger logger = LoggerFactory.getLogger(SocketRpcClient.class);
+    private final String host;
+    private final int port;
 
-    public Object sendRequest(RpcRequest rpcRequest, String host, int port) {
+    public SocketRpcClient(String host, int port) {
+        this.host = host;
+        this.port = port;
+    }
+
+    @Override
+    public Object sendRequest(RpcRequest rpcRequest) {
         try(Socket socket = new Socket(host, port)) {
 
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
@@ -37,4 +46,5 @@ public class RpcClient {
             return null;
         }
     }
+
 }

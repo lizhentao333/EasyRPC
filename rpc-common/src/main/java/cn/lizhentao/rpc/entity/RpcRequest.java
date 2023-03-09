@@ -1,9 +1,6 @@
 package cn.lizhentao.rpc.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.io.Serializable;
 
@@ -13,7 +10,6 @@ import java.io.Serializable;
  * @description: 用于发送rpc请求
  */
 @Data
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class RpcRequest implements Serializable {
