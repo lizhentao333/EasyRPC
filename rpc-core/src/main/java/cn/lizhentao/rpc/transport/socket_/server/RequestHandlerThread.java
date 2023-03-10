@@ -1,15 +1,16 @@
-package cn.lizhentao.rpc.socket_.server;
+package cn.lizhentao.rpc.transport.socket_.server;
 
-import cn.lizhentao.rpc.RequestHandler;
+import cn.lizhentao.rpc.handler.RequestHandler;
 import cn.lizhentao.rpc.entity.RpcRequest;
 import cn.lizhentao.rpc.entity.RpcResponse;
 import cn.lizhentao.rpc.registry.ServiceRegistry;
+import cn.lizhentao.rpc.serializer.CommonSerializer;
+import cn.lizhentao.rpc.transport.socket_.util.ObjectReader;
+import cn.lizhentao.rpc.transport.socket_.util.ObjectWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.net.Socket;
 
 /**
@@ -23,30 +24,31 @@ public class RequestHandlerThread implements Runnable{
     private final Socket socket;
     private final RequestHandler requestHandler;
     private final ServiceRegistry serviceRegistry;
+    private CommonSerializer serializer;
 
-    public RequestHandlerThread(Socket socket, RequestHandler requestHandler, ServiceRegistry serviceRegistry) {
+    public RequestHandlerThread(Socket socket, RequestHandler requestHandler, ServiceRegistry serviceRegistry, CommonSerializer serializer) {
         this.socket = socket;
         this.requestHandler = requestHandler;
         this.serviceRegistry = serviceRegistry;
+        this.serializer = serializer;
     }
 
     @Override
     public void run() {
-        try(ObjectInputStream inputStream = new ObjectInputStream(socket.getInputStream())) {
-            ObjectOutputStream outputStream = new ObjectOutputStream(socket.getOutputStream());
-            // 反序列化
-            RpcRequest request = (RpcRequest)inputStream.readObject();
+        try (InputStream inputStream = socket.getInputStream();
+             OutputStream outputStream = socket.getOutputStream()) {
+
+            RpcRequest request = (RpcRequest) ObjectReader.readObject(inputStream);
             // 此时由requestHandler负责找执行对应方法
             String interfaceName = request.getInterfaceName();
-            Object service = serviceRegistry.getService(interfaceName);
-            Object result = requestHandler.handle(request, service);
+            Object result = requestHandler.handle(request);
 
             // 将结果返回给客户端
-            outputStream.writeObject(RpcResponse.success(result));
-            outputStream.flush();
+            RpcResponse<Object> response = RpcResponse.success(result, request.getRequestId());
+            ObjectWriter.writeObject(outputStream, response, serializer);
 
 
-        }catch (IOException | ClassNotFoundException  e) {
+        }catch (IOException e) {
             logger.error("调用或发送时有错误发生：", e);
         }
     }

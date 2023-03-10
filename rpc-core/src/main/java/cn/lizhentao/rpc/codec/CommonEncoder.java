@@ -10,7 +10,7 @@ import io.netty.handler.codec.MessageToByteEncoder;
 /**
  * @author lzt
  * @date 2023/3/8 22:08
- * @description:
+ * @description: 用于编码
  */
 public class CommonEncoder extends MessageToByteEncoder {
     private static final int MAGIC_NUMBER = 0xCAFEBABE;

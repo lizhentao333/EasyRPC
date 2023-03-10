@@ -6,7 +6,7 @@ import lombok.Getter;
 /**
  * @author lzt
  * @date 2023/3/8 21:05
- * @description:
+ * @description: 传输中的数据包类型
  */
 @Getter
 @AllArgsConstructor

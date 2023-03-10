@@ -1,6 +1,7 @@
-package cn.lizhentao.rpc;
+package cn.lizhentao.rpc.transport;
 
 import cn.lizhentao.rpc.entity.RpcRequest;
+import cn.lizhentao.rpc.serializer.CommonSerializer;
 
 /**
  * @author lzt
@@ -9,4 +10,6 @@ import cn.lizhentao.rpc.entity.RpcRequest;
  */
 public interface RpcClient {
     Object sendRequest(RpcRequest rpcRequest);
+
+    void setSerializer(CommonSerializer serializer);
 }

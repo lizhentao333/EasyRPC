@@ -1,9 +1,8 @@
 package cn.lizhentao.test;
 
 import cn.lizhentao.rpc.api.HelloService;
-import cn.lizhentao.rpc.nety.server.NettyServer;
-import cn.lizhentao.rpc.registry.DefaultServiceRegistry;
-import cn.lizhentao.rpc.registry.ServiceRegistry;
+import cn.lizhentao.rpc.serializer.ProtobufSerializer;
+import cn.lizhentao.rpc.transport.netty.server.NettyServer;
 
 /**
  * @author lzt
@@ -13,9 +12,8 @@ import cn.lizhentao.rpc.registry.ServiceRegistry;
 public class NettyTestServer {
     public static void main(String[] args) {
         HelloService helloService = new HelloServiceImpl();
-        ServiceRegistry registry = new DefaultServiceRegistry();
-        registry.register(helloService);
-        NettyServer server = new NettyServer();
-        server.start(9999);
+        NettyServer server = new NettyServer("127.0.0.1", 9999);
+        server.setSerializer(new ProtobufSerializer());
+        server.publishService(helloService, HelloService.class);
     }
 }

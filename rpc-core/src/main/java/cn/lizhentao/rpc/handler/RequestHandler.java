@@ -1,8 +1,10 @@
-package cn.lizhentao.rpc;
+package cn.lizhentao.rpc.handler;
 
 import cn.lizhentao.rpc.entity.RpcRequest;
 import cn.lizhentao.rpc.entity.RpcResponse;
 import cn.lizhentao.rpc.enumeration.ResponseCode;
+import cn.lizhentao.rpc.provider.ServiceProvider;
+import cn.lizhentao.rpc.provider.ServiceProviderImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,9 +18,13 @@ import java.lang.reflect.Method;
  */
 public class RequestHandler {
     private static final Logger logger = LoggerFactory.getLogger(RequestHandler.class);
-
-    public Object handle(RpcRequest rpcRequest, Object service) {
+    private static final ServiceProvider serviceProvider;
+    static {
+        serviceProvider = new ServiceProviderImpl();
+    }
+    public Object handle(RpcRequest rpcRequest) {
         Object result = null;
+        Object service = serviceProvider.getServiceProvider(rpcRequest.getInterfaceName());
         try {
             result = invokeTargetMethod(rpcRequest, service);
             logger.info("服务:{} 成功调用方法:{}", rpcRequest.getInterfaceName(), rpcRequest.getMethodName());
@@ -32,7 +38,7 @@ public class RequestHandler {
         try {
             method = service.getClass().getMethod(rpcRequest.getMethodName(), rpcRequest.getParamTypes());
         } catch (NoSuchMethodException e) {
-            return RpcResponse.fail(ResponseCode.METHOD_NOT_FOUND);
+            return RpcResponse.fail(ResponseCode.METHOD_NOT_FOUND, rpcRequest.getRequestId());
         }
         return method.invoke(service, rpcRequest.getParameters());
     }

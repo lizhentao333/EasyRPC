@@ -5,7 +5,48 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="237fae54-2f05-4329-8216-561317e588ff" name="Changes" comment="添加Kryo序列化方法">
+      <change afterPath="$PROJECT_DIR$/rpc-common/src/main/java/cn/lizhentao/rpc/util/RpcMessageChecker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rpc-common/src/main/java/cn/lizhentao/rpc/util/ThreadPoolFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rpc-core/src/main/java/cn/lizhentao/rpc/provider/ServiceProvider.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rpc-core/src/main/java/cn/lizhentao/rpc/registry/NacosServiceRegistry.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rpc-core/src/main/java/cn/lizhentao/rpc/serializer/HessianSerializer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rpc-core/src/main/java/cn/lizhentao/rpc/serializer/ProtobufSerializer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rpc-core/src/main/java/cn/lizhentao/rpc/transport/netty/client/ChannelProvider.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rpc-core/src/main/java/cn/lizhentao/rpc/transport/socket_/client/SocketRpcClient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rpc-core/src/main/java/cn/lizhentao/rpc/transport/socket_/util/ObjectReader.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rpc-core/src/main/java/cn/lizhentao/rpc/transport/socket_/util/ObjectWriter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-common/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-common/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-common/src/main/java/cn/lizhentao/rpc/entity/RpcRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-common/src/main/java/cn/lizhentao/rpc/entity/RpcRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-common/src/main/java/cn/lizhentao/rpc/entity/RpcResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-common/src/main/java/cn/lizhentao/rpc/entity/RpcResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-common/src/main/java/cn/lizhentao/rpc/enumeration/PackageType.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-common/src/main/java/cn/lizhentao/rpc/enumeration/PackageType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-common/src/main/java/cn/lizhentao/rpc/enumeration/ResponseCode.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-common/src/main/java/cn/lizhentao/rpc/enumeration/ResponseCode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-common/src/main/java/cn/lizhentao/rpc/enumeration/RpcError.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-common/src/main/java/cn/lizhentao/rpc/enumeration/RpcError.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-common/src/main/java/cn/lizhentao/rpc/enumeration/SerializerCode.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-common/src/main/java/cn/lizhentao/rpc/enumeration/SerializerCode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-common/src/main/java/cn/lizhentao/rpc/exception/SerializeException.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-common/src/main/java/cn/lizhentao/rpc/exception/SerializeException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-core/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-core/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-core/src/main/java/cn/lizhentao/rpc/RequestHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-core/src/main/java/cn/lizhentao/rpc/handler/RequestHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-core/src/main/java/cn/lizhentao/rpc/RpcClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-core/src/main/java/cn/lizhentao/rpc/transport/RpcClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-core/src/main/java/cn/lizhentao/rpc/RpcClientProxy.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-core/src/main/java/cn/lizhentao/rpc/transport/RpcClientProxy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-core/src/main/java/cn/lizhentao/rpc/RpcServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-core/src/main/java/cn/lizhentao/rpc/transport/RpcServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-core/src/main/java/cn/lizhentao/rpc/codec/CommonDecoder.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-core/src/main/java/cn/lizhentao/rpc/codec/CommonDecoder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-core/src/main/java/cn/lizhentao/rpc/codec/CommonEncoder.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-core/src/main/java/cn/lizhentao/rpc/codec/CommonEncoder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-core/src/main/java/cn/lizhentao/rpc/nety/client/NettyClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-core/src/main/java/cn/lizhentao/rpc/transport/netty/client/NettyClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-core/src/main/java/cn/lizhentao/rpc/nety/client/NettyClientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-core/src/main/java/cn/lizhentao/rpc/transport/netty/client/NettyClientHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-core/src/main/java/cn/lizhentao/rpc/nety/server/NettyServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-core/src/main/java/cn/lizhentao/rpc/transport/netty/server/NettyServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-core/src/main/java/cn/lizhentao/rpc/nety/server/NettyServerHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-core/src/main/java/cn/lizhentao/rpc/transport/netty/server/NettyServerHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-core/src/main/java/cn/lizhentao/rpc/registry/DefaultServiceRegistry.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-core/src/main/java/cn/lizhentao/rpc/provider/ServiceProviderImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-core/src/main/java/cn/lizhentao/rpc/registry/ServiceRegistry.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-core/src/main/java/cn/lizhentao/rpc/registry/ServiceRegistry.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-core/src/main/java/cn/lizhentao/rpc/serializer/CommonSerializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-core/src/main/java/cn/lizhentao/rpc/serializer/CommonSerializer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-core/src/main/java/cn/lizhentao/rpc/serializer/JsonSerializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-core/src/main/java/cn/lizhentao/rpc/serializer/JsonSerializer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-core/src/main/java/cn/lizhentao/rpc/socket_/client/SocketRpcClient.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-core/src/main/java/cn/lizhentao/rpc/socket_/server/RequestHandlerThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-core/src/main/java/cn/lizhentao/rpc/transport/socket_/server/RequestHandlerThread.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-core/src/main/java/cn/lizhentao/rpc/socket_/server/SocketRpcServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-core/src/main/java/cn/lizhentao/rpc/transport/socket_/server/SocketRpcServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test-client/src/main/java/cn/lizhentao/test/NettyTestClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/test-client/src/main/java/cn/lizhentao/test/NettyTestClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test-client/src/main/java/cn/lizhentao/test/SocketTestClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/test-client/src/main/java/cn/lizhentao/test/SocketTestClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test-server/src/main/java/cn/lizhentao/test/NettyTestServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/test-server/src/main/java/cn/lizhentao/test/NettyTestServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test-server/src/main/java/cn/lizhentao/test/SocketTestServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/test-server/src/main/java/cn/lizhentao/test/SocketTestServer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,6 +88,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "ToolWindowRun.ShowToolbar": "false",
     "WebServerToolWindowFactoryState": "false",
     "jdk.selected.JAVA_MODULE": "1.8",
     "last_opened_file_path": "D:/MyData/Projects/IDEAProject/EasyRPC/rpc-common/src/main/java",
@@ -54,6 +96,9 @@
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
     "settings.editor.selected.configurable": "reference.settings.project.maven.repository.indices",
     "vue.rearranger.settings.migration": "true"
   }
@@ -63,6 +108,7 @@
       <recent name="D:\MyData\Projects\IDEAProject\EasyRPC\rpc-common\src\main\java" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="cn.lizhentao.rpc.provider" />
       <recent name="cn.lizhentao.rpc.socket_.server" />
       <recent name="cn.lizhentao.rpc" />
     </key>
@@ -137,7 +183,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1678264900093</updated>
-      <workItem from="1678264901259" duration="33137000" />
+      <workItem from="1678264901259" duration="46597000" />
     </task>
     <task id="LOCAL-00001" summary="简易版rpc过程">
       <created>1678271372873</created>
@@ -167,7 +213,14 @@
       <option name="project" value="LOCAL" />
       <updated>1678374309210</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="添加Kryo序列化方法">
+      <created>1678429528819</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1678429528819</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -183,11 +236,10 @@
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/test-server/src/main/java/cn/lizhentao/test/NettyTestServer.java</url>
-          <line>17</line>
-          <option name="timeStamp" value="7" />
-        </line-breakpoint>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="cn.lizhentao.rpc.exception.RpcException" package="cn.lizhentao.rpc.exception" />
+          <option name="timeStamp" value="9" />
+        </breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>

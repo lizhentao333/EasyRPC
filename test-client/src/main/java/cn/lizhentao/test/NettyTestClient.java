@@ -1,10 +1,11 @@
 package cn.lizhentao.test;
 
-import cn.lizhentao.rpc.RpcClient;
-import cn.lizhentao.rpc.RpcClientProxy;
+import cn.lizhentao.rpc.serializer.ProtobufSerializer;
+import cn.lizhentao.rpc.transport.RpcClient;
+import cn.lizhentao.rpc.transport.RpcClientProxy;
 import cn.lizhentao.rpc.api.HelloObject;
 import cn.lizhentao.rpc.api.HelloService;
-import cn.lizhentao.rpc.nety.client.NettyClient;
+import cn.lizhentao.rpc.transport.netty.client.NettyClient;
 
 /**
  * @author lzt
@@ -13,7 +14,8 @@ import cn.lizhentao.rpc.nety.client.NettyClient;
  */
 public class NettyTestClient {
     public static void main(String[] args) {
-        RpcClient client = new NettyClient("127.0.0.1", 9999);
+        RpcClient client = new NettyClient();
+        client.setSerializer(new ProtobufSerializer());
         RpcClientProxy rpcClientProxy = new RpcClientProxy(client);
         HelloService helloService = rpcClientProxy.getProxy(HelloService.class);
         HelloObject object = new HelloObject(12, "This is a message");

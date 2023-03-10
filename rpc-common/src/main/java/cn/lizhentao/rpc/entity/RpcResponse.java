@@ -16,6 +16,10 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class RpcResponse<T> implements Serializable {
     /**
+     * 响应对应的请求号
+     */
+    private String requestId;
+    /**
      * 返回结果的状态码
      */
     private Integer statusCode;
@@ -34,9 +38,9 @@ public class RpcResponse<T> implements Serializable {
      * @return
      * @param <T>
      */
-    public static <T> RpcResponse<T> success(T data) {
+    public static <T> RpcResponse<T> success(T data, String requestId) {
         RpcResponse<T> response = new RpcResponse<>();
-        System.out.println(data.toString());
+        response.setRequestId(requestId);
         response.setStatusCode(ResponseCode.SUCCESS.getCode());
         response.setData(data);
         return response;
@@ -48,8 +52,9 @@ public class RpcResponse<T> implements Serializable {
      * @return
      * @param <T>
      */
-    public static <T> RpcResponse<T> fail(ResponseCode code) {
+    public static <T> RpcResponse<T> fail(ResponseCode code, String requestId) {
         RpcResponse<T> response = new RpcResponse<>();
+        response.setRequestId(requestId);
         response.setStatusCode(code.getCode());
         response.setMessage(code.getMessage());
         return response;

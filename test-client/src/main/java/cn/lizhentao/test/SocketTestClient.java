@@ -2,8 +2,9 @@ package cn.lizhentao.test;
 
 import cn.lizhentao.rpc.api.HelloObject;
 import cn.lizhentao.rpc.api.HelloService;
-import cn.lizhentao.rpc.RpcClientProxy;
-import cn.lizhentao.rpc.socket_.client.SocketRpcClient;
+import cn.lizhentao.rpc.serializer.KryoSerializer;
+import cn.lizhentao.rpc.transport.RpcClientProxy;
+import cn.lizhentao.rpc.transport.socket_.client.SocketRpcClient;
 
 /**
  * @author lzt
@@ -12,7 +13,9 @@ import cn.lizhentao.rpc.socket_.client.SocketRpcClient;
  */
 public class SocketTestClient {
     public static void main(String[] args) {
-        RpcClientProxy proxy = new RpcClientProxy(new SocketRpcClient("127.0.0.1", 9000));
+        SocketRpcClient client = new SocketRpcClient();
+        client.setSerializer(new KryoSerializer());
+        RpcClientProxy proxy = new RpcClientProxy(client);
         HelloService helloService = proxy.getProxy(HelloService.class);
         HelloObject object = new HelloObject(12, "This is a message");
         String res = helloService.hello(object);

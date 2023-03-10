@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * @author lzt
  * @date 2023/3/8 21:32
- * @description:
+ * @description: 用于对数据进行解码
  */
 public class CommonDecoder extends ReplayingDecoder {
     private static final Logger logger = LoggerFactory.getLogger(CommonDecoder.class);
