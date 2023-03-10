@@ -1,5 +1,6 @@
 package cn.lizhentao.rpc.codec;
 
+import cn.lizhentao.rpc.constant.ProtocolConstant;
 import cn.lizhentao.rpc.entity.RpcRequest;
 import cn.lizhentao.rpc.enumeration.PackageType;
 import cn.lizhentao.rpc.serializer.CommonSerializer;
@@ -13,8 +14,6 @@ import io.netty.handler.codec.MessageToByteEncoder;
  * @description: 用于编码
  */
 public class CommonEncoder extends MessageToByteEncoder {
-    private static final int MAGIC_NUMBER = 0xCAFEBABE;
-
     private final CommonSerializer serializer;
 
     public CommonEncoder(CommonSerializer serializer) {
@@ -23,7 +22,7 @@ public class CommonEncoder extends MessageToByteEncoder {
     @Override
     protected void encode(ChannelHandlerContext channelHandlerContext, Object o, ByteBuf byteBuf) throws Exception {
         // 写入魔数
-        byteBuf.writeInt(MAGIC_NUMBER);
+        byteBuf.writeInt(ProtocolConstant.MAGIC_NUMBER);
         // 写数据包类型
         byteBuf.writeInt(o instanceof RpcRequest ? PackageType.REQUEST_PACK.getCode() : PackageType.RESPONSE_PACK.getCode());
 

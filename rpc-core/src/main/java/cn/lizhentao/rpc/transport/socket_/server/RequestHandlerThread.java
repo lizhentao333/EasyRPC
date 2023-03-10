@@ -35,16 +35,19 @@ public class RequestHandlerThread implements Runnable{
 
     @Override
     public void run() {
+        // 收到客户端的请求后
         try (InputStream inputStream = socket.getInputStream();
              OutputStream outputStream = socket.getOutputStream()) {
-
+            // 解析请求报文
             RpcRequest request = (RpcRequest) ObjectReader.readObject(inputStream);
             // 此时由requestHandler负责找执行对应方法
             String interfaceName = request.getInterfaceName();
+            // 在本地查找对应的请求方法，然后根据请求中的参数调用该方法，最终得到请求结果
             Object result = requestHandler.handle(request);
 
             // 将结果返回给客户端
             RpcResponse<Object> response = RpcResponse.success(result, request.getRequestId());
+            // 将报文编码，然后发送给客户端
             ObjectWriter.writeObject(outputStream, response, serializer);
 
 

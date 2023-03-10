@@ -38,13 +38,15 @@ public class SocketRpcClient implements RpcClient {
             logger.error("未设置序列化器");
             throw new RpcException(RpcError.SERIALIZER_NOT_FOUND);
         }
+        // 向注册中心查找对应的服务所在的ip和port
         InetSocketAddress inetSocketAddress = serviceRegistry.lookupService(rpcRequest.getInterfaceName());
         try (Socket socket = new Socket()) {
+            // 对应服务提供商进行通信
             socket.connect(inetSocketAddress);
 
             OutputStream outputStream = socket.getOutputStream();
             InputStream inputStream = socket.getInputStream();
-
+            // 将请求进行编码，然后发送给服务端，
             ObjectWriter.writeObject(outputStream, rpcRequest, serializer);
 
             Object obj = ObjectReader.readObject(inputStream);

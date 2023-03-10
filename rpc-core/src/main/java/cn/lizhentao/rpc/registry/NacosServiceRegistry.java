@@ -1,5 +1,6 @@
 package cn.lizhentao.rpc.registry;
 
+import cn.lizhentao.rpc.constant.ProtocolConstant;
 import cn.lizhentao.rpc.enumeration.RpcError;
 import cn.lizhentao.rpc.exception.RpcException;
 import com.alibaba.nacos.api.exception.NacosException;
@@ -19,13 +20,11 @@ import java.util.List;
  */
 public class NacosServiceRegistry implements ServiceRegistry{
     private static final Logger logger = LoggerFactory.getLogger(NacosServiceRegistry.class);
-
-    private static final String SERVER_ADDR = "101.43.133.157:8848";
     private static final NamingService namingService;
 
     static {
         try {
-            namingService = NamingFactory.createNamingService(SERVER_ADDR);
+            namingService = NamingFactory.createNamingService(ProtocolConstant.SERVER_ADDR);
         } catch (NacosException e) {
             logger.error("连接到Nacos时有错误发生: ", e);
             throw new RpcException(RpcError.FAILED_TO_CONNECT_TO_SERVICE_REGISTRY);

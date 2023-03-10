@@ -1,5 +1,6 @@
 package cn.lizhentao.rpc.transport.socket_.util;
 
+import cn.lizhentao.rpc.constant.ProtocolConstant;
 import cn.lizhentao.rpc.entity.RpcRequest;
 import cn.lizhentao.rpc.entity.RpcResponse;
 import cn.lizhentao.rpc.enumeration.PackageType;
@@ -16,10 +17,10 @@ import java.io.OutputStream;
  * @description:
  */
 public class ObjectWriter {
-    private static final int MAGIC_NUMBER = 0xCAFEBABE;
+
     public static void writeObject(OutputStream outputStream, Object obj, CommonSerializer serializer) throws IOException {
         // 写入魔数
-        outputStream.write(intToBytes(MAGIC_NUMBER));
+        outputStream.write(intToBytes(ProtocolConstant.MAGIC_NUMBER));
         // 写入数据包类型
         if(obj instanceof RpcRequest) {
             outputStream.write(intToBytes(PackageType.REQUEST_PACK.getCode()));

@@ -7,7 +7,7 @@ import java.util.concurrent.*;
 /**
  * @author lzt
  * @date 2023/3/10 16:54
- * @description:
+ * @description: 自定义线程池
  */
 public class ThreadPoolFactory {
     /**
@@ -25,6 +25,12 @@ public class ThreadPoolFactory {
         return createDefaultThreadPool(threadNamePrefix, false);
     }
 
+    /**
+     * 生产一个线程池
+     * @param threadNamePrefix
+     * @param daemon
+     * @return
+     */
     public static ExecutorService createDefaultThreadPool(String threadNamePrefix, Boolean daemon) {
         // 使用有界队列
         BlockingQueue<Runnable> workQueue = new ArrayBlockingQueue<>(BLOCKING_QUEUE_CAPACITY);

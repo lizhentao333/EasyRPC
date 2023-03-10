@@ -27,7 +27,6 @@ import java.util.concurrent.*;
 public class SocketRpcServer implements RpcServer {
 
     private static final Logger logger = LoggerFactory.getLogger(SocketRpcServer.class);
-
     private final ExecutorService threadPool;
     private final String host;
     private final int port;
@@ -50,8 +49,11 @@ public class SocketRpcServer implements RpcServer {
             logger.error("未设置序列化器");
             throw new RpcException(RpcError.SERIALIZER_NOT_FOUND);
         }
+        // 像本地注册表中添加服务
         serviceProvider.addServiceProvider(service);
+        // 向注册中心注册该服务
         serviceRegistry.register(serviceClass.getCanonicalName(), new InetSocketAddress(host, port));
+        // 注册之后开始启动服务器
         start();
     }
 
@@ -60,10 +62,13 @@ public class SocketRpcServer implements RpcServer {
         try(ServerSocket serverSocket = new ServerSocket(port)) {
             logger.info("服务器正在启动...");
             Socket socket;
+            // 监听对应端口即可
             while ((socket = serverSocket.accept()) != null) {
                 logger.info("消费者连接: {}:{}", socket.getInetAddress(), socket.getPort());
+                // 每来到一个客户请求，就新开一个线程，扔到线程池中
                 threadPool.execute(new RequestHandlerThread(socket, requestHandler, serviceRegistry, serializer));
             }
+            // 当服务端关闭后，线程池也要回收
             threadPool.shutdown();
         }catch (IOException e) {
             logger.error("服务器启动时有错误发生", e);

@@ -1,5 +1,6 @@
 package cn.lizhentao.rpc.codec;
 
+import cn.lizhentao.rpc.constant.ProtocolConstant;
 import cn.lizhentao.rpc.entity.RpcRequest;
 import cn.lizhentao.rpc.entity.RpcResponse;
 import cn.lizhentao.rpc.enumeration.PackageType;
@@ -21,8 +22,6 @@ import java.util.List;
  */
 public class CommonDecoder extends ReplayingDecoder {
     private static final Logger logger = LoggerFactory.getLogger(CommonDecoder.class);
-    private static final int MAGIC_NUMBER = 0xCAFEBABE;
-
     /**
      * 解析协议数据
      * @param channelHandlerContext
@@ -33,7 +32,7 @@ public class CommonDecoder extends ReplayingDecoder {
     @Override
     protected void decode(ChannelHandlerContext channelHandlerContext, ByteBuf byteBuf, List<Object> list) throws Exception {
         int magic = byteBuf.readInt();
-        if (magic != MAGIC_NUMBER) {
+        if (magic != ProtocolConstant.MAGIC_NUMBER) {
             logger.error("不识别的协议包: {}", magic);
             throw new RpcException(RpcError.UNKNOWN_PROTOCOL);
         }
