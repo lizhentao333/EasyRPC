@@ -44,13 +44,13 @@ public class SocketRpcServer implements RpcServer {
     }
 
     @Override
-    public <T> void publishService(Object service, Class<T> serviceClass) {
+    public <T> void publishService(T service, Class<T> serviceClass) {
         if(serializer == null) {
             logger.error("未设置序列化器");
             throw new RpcException(RpcError.SERIALIZER_NOT_FOUND);
         }
         // 像本地注册表中添加服务
-        serviceProvider.addServiceProvider(service);
+        serviceProvider.addServiceProvider(service, serviceClass);
         // 向注册中心注册该服务
         serviceRegistry.register(serviceClass.getCanonicalName(), new InetSocketAddress(host, port));
         // 注册之后开始启动服务器

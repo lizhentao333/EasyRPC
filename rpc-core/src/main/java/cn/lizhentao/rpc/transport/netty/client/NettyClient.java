@@ -2,7 +2,9 @@ package cn.lizhentao.rpc.transport.netty.client;
 
 import cn.lizhentao.rpc.enumeration.RpcError;
 import cn.lizhentao.rpc.exception.RpcException;
+import cn.lizhentao.rpc.registry.NacosServiceDiscovery;
 import cn.lizhentao.rpc.registry.NacosServiceRegistry;
+import cn.lizhentao.rpc.registry.ServiceDiscovery;
 import cn.lizhentao.rpc.registry.ServiceRegistry;
 import cn.lizhentao.rpc.serializer.CommonSerializer;
 import cn.lizhentao.rpc.transport.RpcClient;
@@ -29,7 +31,7 @@ public class NettyClient implements RpcClient {
     private static final Logger logger = LoggerFactory.getLogger(NettyClient.class);
     private static final Bootstrap bootstrap;
     private CommonSerializer serializer;
-    private ServiceRegistry serviceRegistry;
+    private ServiceDiscovery serviceDiscovery;
 
     static {
         EventLoopGroup group = new NioEventLoopGroup();
@@ -40,7 +42,7 @@ public class NettyClient implements RpcClient {
     }
 
     public NettyClient() {
-        this.serviceRegistry = new NacosServiceRegistry();
+        this.serviceDiscovery = new NacosServiceDiscovery();
     }
 
     @Override
@@ -51,7 +53,7 @@ public class NettyClient implements RpcClient {
         }
         AtomicReference<Object> result = new AtomicReference<>(null);
         try {
-            InetSocketAddress inetSocketAddress = serviceRegistry.lookupService(rpcRequest.getInterfaceName());
+            InetSocketAddress inetSocketAddress = serviceDiscovery.lookupService(rpcRequest.getInterfaceName());
             Channel channel = ChannelProvider.get(inetSocketAddress, serializer);
 
             if (channel.isActive()) {
@@ -69,6 +71,7 @@ public class NettyClient implements RpcClient {
                 result.set(rpcResponse.getData());
 
             }else {
+                channel.close();
                 System.exit(0);
             }
 

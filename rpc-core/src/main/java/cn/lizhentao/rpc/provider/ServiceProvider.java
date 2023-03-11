@@ -6,7 +6,7 @@ package cn.lizhentao.rpc.provider;
  * @description:
  */
 public interface ServiceProvider {
-    <T> void addServiceProvider(T service);
+    <T> void addServiceProvider(T service, Class<T> serviceClass);
 
     Object getServiceProvider(String serviceName);
 }

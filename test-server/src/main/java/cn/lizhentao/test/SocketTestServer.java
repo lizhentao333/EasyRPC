@@ -11,7 +11,7 @@ import cn.lizhentao.rpc.transport.socket_.server.SocketRpcServer;
  */
 public class SocketTestServer {
     public static void main(String[] args) {
-        HelloService helloService = new HelloServiceImpl();
+        HelloService helloService = new HelloServiceImpl2();
         SocketRpcServer socketServer = new SocketRpcServer("127.0.0.1", 9998);
         socketServer.setSerializer(new HessianSerializer());
         socketServer.publishService(helloService, HelloService.class);

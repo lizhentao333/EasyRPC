@@ -2,7 +2,9 @@ package cn.lizhentao.rpc.transport.socket_.client;
 
 import cn.lizhentao.rpc.enumeration.RpcError;
 import cn.lizhentao.rpc.exception.RpcException;
+import cn.lizhentao.rpc.registry.NacosServiceDiscovery;
 import cn.lizhentao.rpc.registry.NacosServiceRegistry;
+import cn.lizhentao.rpc.registry.ServiceDiscovery;
 import cn.lizhentao.rpc.registry.ServiceRegistry;
 import cn.lizhentao.rpc.serializer.CommonSerializer;
 import cn.lizhentao.rpc.transport.socket_.util.ObjectReader;
@@ -26,10 +28,10 @@ import java.net.Socket;
 public class SocketRpcClient implements RpcClient {
     private static final Logger logger = LoggerFactory.getLogger(SocketRpcClient.class);
     private CommonSerializer serializer;
-    private final ServiceRegistry serviceRegistry;
+    private final ServiceDiscovery serviceDiscovery;
 
     public SocketRpcClient() {
-        this.serviceRegistry = new NacosServiceRegistry();
+        this.serviceDiscovery = new NacosServiceDiscovery();
     }
 
     @Override
@@ -39,7 +41,7 @@ public class SocketRpcClient implements RpcClient {
             throw new RpcException(RpcError.SERIALIZER_NOT_FOUND);
         }
         // 向注册中心查找对应的服务所在的ip和port
-        InetSocketAddress inetSocketAddress = serviceRegistry.lookupService(rpcRequest.getInterfaceName());
+        InetSocketAddress inetSocketAddress = serviceDiscovery.lookupService(rpcRequest.getInterfaceName());
         try (Socket socket = new Socket()) {
             // 对应服务提供商进行通信
             socket.connect(inetSocketAddress);
