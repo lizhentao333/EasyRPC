@@ -1,5 +1,6 @@
 package cn.lizhentao.test;
 
+import cn.lizhentao.rpc.constant.ProtocolConstant;
 import cn.lizhentao.rpc.serializer.ProtobufSerializer;
 import cn.lizhentao.rpc.transport.RpcClient;
 import cn.lizhentao.rpc.transport.RpcClientProxy;
@@ -14,8 +15,7 @@ import cn.lizhentao.rpc.transport.netty.client.NettyClient;
  */
 public class NettyTestClient {
     public static void main(String[] args) {
-        RpcClient client = new NettyClient();
-        client.setSerializer(new ProtobufSerializer());
+        RpcClient client = new NettyClient(ProtocolConstant.PROTOBUF_SERIALIZER);
         RpcClientProxy rpcClientProxy = new RpcClientProxy(client);
         HelloService helloService = rpcClientProxy.getProxy(HelloService.class);
         HelloObject object = new HelloObject(12, "This is a message");

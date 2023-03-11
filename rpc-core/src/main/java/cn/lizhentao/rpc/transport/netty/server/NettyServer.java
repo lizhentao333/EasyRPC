@@ -1,7 +1,9 @@
 package cn.lizhentao.rpc.transport.netty.server;
 
+import cn.lizhentao.rpc.constant.ProtocolConstant;
 import cn.lizhentao.rpc.enumeration.RpcError;
 import cn.lizhentao.rpc.exception.RpcException;
+import cn.lizhentao.rpc.hook.ShutdownHook;
 import cn.lizhentao.rpc.provider.ServiceProvider;
 import cn.lizhentao.rpc.provider.ServiceProviderImpl;
 import cn.lizhentao.rpc.registry.NacosServiceRegistry;
@@ -39,12 +41,17 @@ public class NettyServer implements RpcServer {
     private final ServiceProvider serviceProvider;
     private CommonSerializer serializer;
 
-
     public NettyServer(String host, int port) {
+        this(host, port, ProtocolConstant.DEFAULT_SERIALIZER);
+    }
+
+
+    public NettyServer(String host, int port, Integer serializerCode) {
         this.host = host;
         this.port = port;
-        serviceRegistry = new NacosServiceRegistry();
-        serviceProvider = new ServiceProviderImpl();
+        this.serviceRegistry = new NacosServiceRegistry();
+        this.serviceProvider = new ServiceProviderImpl();
+        this.serializer = CommonSerializer.getByCode(serializerCode);
     }
 
     @Override
@@ -59,6 +66,7 @@ public class NettyServer implements RpcServer {
     }
     @Override
     public void start() {
+        ShutdownHook.getShutdownHook().addClearAllHook();
         NioEventLoopGroup bossGroup = new NioEventLoopGroup();
         NioEventLoopGroup workerGroup = new NioEventLoopGroup();
         try {
@@ -86,10 +94,5 @@ public class NettyServer implements RpcServer {
             bossGroup.shutdownGracefully();
             workerGroup.shutdownGracefully();
         }
-    }
-
-    @Override
-    public void setSerializer(CommonSerializer serializer) {
-        this.serializer = serializer;
     }
 }

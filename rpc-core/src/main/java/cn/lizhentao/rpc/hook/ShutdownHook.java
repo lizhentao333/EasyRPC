@@ -15,8 +15,6 @@ import java.util.concurrent.ExecutorService;
 public class ShutdownHook {
     private static final Logger logger = LoggerFactory.getLogger(ShutdownHook.class);
 
-    private final ExecutorService threadPool = ThreadPoolFactory.createDefaultThreadPool("shutdown-hook");
-
     private volatile static ShutdownHook shutdownHook = null;
 
     private ShutdownHook() {}
@@ -35,7 +33,7 @@ public class ShutdownHook {
         logger.info("关闭后将自动注销所有服务");
         Runtime.getRuntime().addShutdownHook(new Thread(()->{
             NacosUtil.clearRegistry();
-            threadPool.shutdown();
+            ThreadPoolFactory.shutDownAll();
         }));
     }
 

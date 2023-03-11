@@ -1,5 +1,6 @@
 package cn.lizhentao.rpc.transport.socket_.client;
 
+import cn.lizhentao.rpc.constant.ProtocolConstant;
 import cn.lizhentao.rpc.enumeration.RpcError;
 import cn.lizhentao.rpc.exception.RpcException;
 import cn.lizhentao.rpc.registry.NacosServiceDiscovery;
@@ -27,11 +28,16 @@ import java.net.Socket;
  */
 public class SocketRpcClient implements RpcClient {
     private static final Logger logger = LoggerFactory.getLogger(SocketRpcClient.class);
-    private CommonSerializer serializer;
+    private final CommonSerializer serializer;
     private final ServiceDiscovery serviceDiscovery;
 
     public SocketRpcClient() {
+        this(ProtocolConstant.DEFAULT_SERIALIZER);
+    }
+
+    public SocketRpcClient(Integer serializerCode) {
         this.serviceDiscovery = new NacosServiceDiscovery();
+        this.serializer = CommonSerializer.getByCode(serializerCode);
     }
 
     @Override
@@ -61,11 +67,6 @@ public class SocketRpcClient implements RpcClient {
             logger.error("sendRequest:调用时有错误发生：", e);
             return null;
         }
-    }
-
-    @Override
-    public void setSerializer(CommonSerializer serializer) {
-        this.serializer = serializer;
     }
 
 }

@@ -1,6 +1,7 @@
 package cn.lizhentao.test;
 
 import cn.lizhentao.rpc.api.HelloService;
+import cn.lizhentao.rpc.constant.ProtocolConstant;
 import cn.lizhentao.rpc.serializer.HessianSerializer;
 import cn.lizhentao.rpc.transport.socket_.server.SocketRpcServer;
 
@@ -12,8 +13,7 @@ import cn.lizhentao.rpc.transport.socket_.server.SocketRpcServer;
 public class SocketTestServer {
     public static void main(String[] args) {
         HelloService helloService = new HelloServiceImpl2();
-        SocketRpcServer socketServer = new SocketRpcServer("127.0.0.1", 9998);
-        socketServer.setSerializer(new HessianSerializer());
+        SocketRpcServer socketServer = new SocketRpcServer("127.0.0.1", 9998, ProtocolConstant.KRYO_SERIALIZER);
         socketServer.publishService(helloService, HelloService.class);
     }
 }

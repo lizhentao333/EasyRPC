@@ -1,5 +1,6 @@
 package cn.lizhentao.rpc.transport.netty.client;
 
+import cn.lizhentao.rpc.constant.ProtocolConstant;
 import cn.lizhentao.rpc.enumeration.RpcError;
 import cn.lizhentao.rpc.exception.RpcException;
 import cn.lizhentao.rpc.registry.NacosServiceDiscovery;
@@ -40,10 +41,15 @@ public class NettyClient implements RpcClient {
                 .option(ChannelOption.SO_KEEPALIVE, true);
     }
     private final ServiceDiscovery serviceDiscovery;
-    private CommonSerializer serializer;
+    private final CommonSerializer serializer;
 
     public NettyClient() {
+        this(ProtocolConstant.DEFAULT_SERIALIZER);
+    }
+
+    public NettyClient(Integer serializerCode) {
         this.serviceDiscovery = new NacosServiceDiscovery();
+        this.serializer = CommonSerializer.getByCode(serializerCode);
     }
 
     @Override
@@ -82,8 +88,4 @@ public class NettyClient implements RpcClient {
         return result.get();
     }
 
-    @Override
-    public void setSerializer(CommonSerializer serializer) {
-        this.serializer = serializer;
-    }
 }

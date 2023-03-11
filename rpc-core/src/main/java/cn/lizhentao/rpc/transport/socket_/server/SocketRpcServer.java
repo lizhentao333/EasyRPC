@@ -1,5 +1,6 @@
 package cn.lizhentao.rpc.transport.socket_.server;
 
+import cn.lizhentao.rpc.constant.ProtocolConstant;
 import cn.lizhentao.rpc.enumeration.RpcError;
 import cn.lizhentao.rpc.exception.RpcException;
 import cn.lizhentao.rpc.handler.RequestHandler;
@@ -30,17 +31,22 @@ public class SocketRpcServer implements RpcServer {
     private final ExecutorService threadPool;
     private final String host;
     private final int port;
-    private CommonSerializer serializer;
+    private final CommonSerializer serializer;
     private final RequestHandler requestHandler = new RequestHandler();
     private final ServiceRegistry serviceRegistry;
     private final ServiceProvider serviceProvider;
 
     public SocketRpcServer(String host, int port) {
+        this(host, port, ProtocolConstant.DEFAULT_SERIALIZER);
+    }
+
+    public SocketRpcServer(String host, int port, Integer serializerCode) {
         this.host = host;
         this.port = port;
         threadPool = ThreadPoolFactory.createDefaultThreadPool("socket-rpc-server");
         this.serviceRegistry = new NacosServiceRegistry();
         this.serviceProvider = new ServiceProviderImpl();
+        this.serializer = CommonSerializer.getByCode(serializerCode);
     }
 
     @Override
@@ -74,10 +80,5 @@ public class SocketRpcServer implements RpcServer {
         }catch (IOException e) {
             logger.error("服务器启动时有错误发生", e);
         }
-    }
-
-    @Override
-    public void setSerializer(CommonSerializer serializer) {
-        this.serializer = serializer;
     }
 }

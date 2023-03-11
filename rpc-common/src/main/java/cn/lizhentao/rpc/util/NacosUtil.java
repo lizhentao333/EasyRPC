@@ -12,10 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.net.InetSocketAddress;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author lzt
@@ -27,6 +24,7 @@ public class NacosUtil {
     private static final NamingService namingService;
     private static final Set<String> serviceNames = new HashSet<>();
     private static InetSocketAddress address;
+//    private static final Map<InetSocketAddress, String> serviceMap = new HashMap<>();
 
     static {
         namingService = getNacosNamingService();
@@ -47,7 +45,6 @@ public class NacosUtil {
 
     /**
      * 向nacos中注册服务
-     * @param namingService
      * @param serviceName
      * @param address
      * @throws NacosException

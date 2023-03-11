@@ -6,6 +6,7 @@ package cn.lizhentao.rpc.serializer;
  * @description:
  */
 public interface CommonSerializer {
+
     static CommonSerializer getByCode(int code) {
         switch (code) {
             case 0:
