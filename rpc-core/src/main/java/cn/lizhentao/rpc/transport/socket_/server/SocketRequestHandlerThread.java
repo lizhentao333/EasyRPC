@@ -18,15 +18,15 @@ import java.net.Socket;
  * @date 2023/3/8 19:09
  * @description:
  */
-public class RequestHandlerThread implements Runnable{
-    private static final Logger logger = LoggerFactory.getLogger(RequestHandlerThread.class);
+public class SocketRequestHandlerThread implements Runnable{
+    private static final Logger logger = LoggerFactory.getLogger(SocketRequestHandlerThread.class);
 
     private final Socket socket;
     private final RequestHandler requestHandler;
     private final ServiceRegistry serviceRegistry;
     private CommonSerializer serializer;
 
-    public RequestHandlerThread(Socket socket, RequestHandler requestHandler, ServiceRegistry serviceRegistry, CommonSerializer serializer) {
+    public SocketRequestHandlerThread(Socket socket, RequestHandler requestHandler, ServiceRegistry serviceRegistry, CommonSerializer serializer) {
         this.socket = socket;
         this.requestHandler = requestHandler;
         this.serviceRegistry = serviceRegistry;
@@ -40,16 +40,12 @@ public class RequestHandlerThread implements Runnable{
              OutputStream outputStream = socket.getOutputStream()) {
             // 解析请求报文
             RpcRequest request = (RpcRequest) ObjectReader.readObject(inputStream);
-            // 此时由requestHandler负责找执行对应方法
-            String interfaceName = request.getInterfaceName();
             // 在本地查找对应的请求方法，然后根据请求中的参数调用该方法，最终得到请求结果
             Object result = requestHandler.handle(request);
-
             // 将结果返回给客户端
             RpcResponse<Object> response = RpcResponse.success(result, request.getRequestId());
             // 将报文编码，然后发送给客户端
             ObjectWriter.writeObject(outputStream, response, serializer);
-
 
         }catch (IOException e) {
             logger.error("调用或发送时有错误发生：", e);

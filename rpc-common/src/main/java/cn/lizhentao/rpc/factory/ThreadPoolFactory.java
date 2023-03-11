@@ -1,4 +1,4 @@
-package cn.lizhentao.rpc.util;
+package cn.lizhentao.rpc.factory;
 
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 

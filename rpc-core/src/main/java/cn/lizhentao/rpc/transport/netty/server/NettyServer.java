@@ -39,6 +39,7 @@ public class NettyServer implements RpcServer {
     private final ServiceProvider serviceProvider;
     private CommonSerializer serializer;
 
+
     public NettyServer(String host, int port) {
         this.host = host;
         this.port = port;

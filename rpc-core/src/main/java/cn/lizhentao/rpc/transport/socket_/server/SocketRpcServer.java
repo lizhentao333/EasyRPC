@@ -9,7 +9,7 @@ import cn.lizhentao.rpc.registry.NacosServiceRegistry;
 import cn.lizhentao.rpc.serializer.CommonSerializer;
 import cn.lizhentao.rpc.transport.RpcServer;
 import cn.lizhentao.rpc.registry.ServiceRegistry;
-import cn.lizhentao.rpc.util.ThreadPoolFactory;
+import cn.lizhentao.rpc.factory.ThreadPoolFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -59,14 +59,15 @@ public class SocketRpcServer implements RpcServer {
 
     @Override
     public void start() {
-        try(ServerSocket serverSocket = new ServerSocket(port)) {
+        try(ServerSocket serverSocket = new ServerSocket()) {
+            serverSocket.bind(new InetSocketAddress(host, port));
             logger.info("服务器正在启动...");
             Socket socket;
             // 监听对应端口即可
             while ((socket = serverSocket.accept()) != null) {
                 logger.info("消费者连接: {}:{}", socket.getInetAddress(), socket.getPort());
                 // 每来到一个客户请求，就新开一个线程，扔到线程池中
-                threadPool.execute(new RequestHandlerThread(socket, requestHandler, serviceRegistry, serializer));
+                threadPool.execute(new SocketRequestHandlerThread(socket, requestHandler, serviceRegistry, serializer));
             }
             // 当服务端关闭后，线程池也要回收
             threadPool.shutdown();
