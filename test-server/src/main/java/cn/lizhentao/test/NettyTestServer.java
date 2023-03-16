@@ -2,7 +2,6 @@ package cn.lizhentao.test;
 
 import cn.lizhentao.rpc.api.HelloService;
 import cn.lizhentao.rpc.constant.ProtocolConstant;
-import cn.lizhentao.rpc.serializer.ProtobufSerializer;
 import cn.lizhentao.rpc.transport.netty.server.NettyServer;
 
 /**

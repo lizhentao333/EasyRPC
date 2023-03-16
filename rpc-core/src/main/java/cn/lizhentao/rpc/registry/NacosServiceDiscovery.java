@@ -2,7 +2,6 @@ package cn.lizhentao.rpc.registry;
 
 import cn.lizhentao.rpc.util.NacosUtil;
 import com.alibaba.nacos.api.exception.NacosException;
-import com.alibaba.nacos.api.naming.NamingService;
 import com.alibaba.nacos.api.naming.pojo.Instance;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

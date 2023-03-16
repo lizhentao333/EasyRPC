@@ -4,9 +4,8 @@ import cn.lizhentao.rpc.constant.ProtocolConstant;
 import cn.lizhentao.rpc.enumeration.RpcError;
 import cn.lizhentao.rpc.exception.RpcException;
 import cn.lizhentao.rpc.registry.NacosServiceDiscovery;
-import cn.lizhentao.rpc.registry.NacosServiceRegistry;
 import cn.lizhentao.rpc.registry.ServiceDiscovery;
-import cn.lizhentao.rpc.registry.ServiceRegistry;
+import cn.lizhentao.rpc.registry.ZookeerperServiceDiscovery;
 import cn.lizhentao.rpc.serializer.CommonSerializer;
 import cn.lizhentao.rpc.transport.socket_.util.ObjectReader;
 import cn.lizhentao.rpc.transport.socket_.util.ObjectWriter;
@@ -36,7 +35,7 @@ public class SocketRpcClient implements RpcClient {
     }
 
     public SocketRpcClient(Integer serializerCode) {
-        this.serviceDiscovery = new NacosServiceDiscovery();
+        this.serviceDiscovery = new ZookeerperServiceDiscovery();
         this.serializer = CommonSerializer.getByCode(serializerCode);
     }
 
@@ -62,7 +61,7 @@ public class SocketRpcClient implements RpcClient {
             // 检查
             RpcMessageChecker.check(rpcRequest, rpcResponse);
 
-            return rpcResponse.getData();
+            return rpcResponse;
         } catch (IOException e) {
             logger.error("sendRequest:调用时有错误发生：", e);
             return null;

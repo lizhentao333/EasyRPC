@@ -1,7 +1,6 @@
 package cn.lizhentao.test;
 
 import cn.lizhentao.rpc.constant.ProtocolConstant;
-import cn.lizhentao.rpc.serializer.ProtobufSerializer;
 import cn.lizhentao.rpc.transport.RpcClient;
 import cn.lizhentao.rpc.transport.RpcClientProxy;
 import cn.lizhentao.rpc.api.HelloObject;

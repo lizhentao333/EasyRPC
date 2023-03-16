@@ -24,8 +24,8 @@ public class CommonEncoder extends MessageToByteEncoder {
         // 写入魔数
         byteBuf.writeInt(ProtocolConstant.MAGIC_NUMBER);
         // 写数据包类型
-        byteBuf.writeInt(o instanceof RpcRequest ? PackageType.REQUEST_PACK.getCode() : PackageType.RESPONSE_PACK.getCode());
-
+        byteBuf.writeInt(o instanceof RpcRequest ?
+                PackageType.REQUEST_PACK.getCode() : PackageType.RESPONSE_PACK.getCode());
         // 写序列化类型
         byteBuf.writeInt(serializer.getCode());
         byte[] bytes = serializer.serialize(o);

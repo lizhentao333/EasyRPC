@@ -7,7 +7,6 @@ import com.alibaba.nacos.api.exception.NacosException;
 import com.alibaba.nacos.api.naming.NamingFactory;
 import com.alibaba.nacos.api.naming.NamingService;
 import com.alibaba.nacos.api.naming.pojo.Instance;
-import com.alibaba.nacos.client.naming.NacosNamingService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,7 +35,7 @@ public class NacosUtil {
      */
     public static NamingService getNacosNamingService() {
         try {
-            return NamingFactory.createNamingService(ProtocolConstant.SERVER_ADDR);
+            return NamingFactory.createNamingService(ProtocolConstant.NACOS_SERVER_ADDR);
         } catch (NacosException e) {
             logger.error("连接到Nacos时有错误发生: ", e);
             throw new RpcException(RpcError.FAILED_TO_CONNECT_TO_SERVICE_REGISTRY);

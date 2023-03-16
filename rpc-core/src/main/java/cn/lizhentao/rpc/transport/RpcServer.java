@@ -1,7 +1,5 @@
 package cn.lizhentao.rpc.transport;
 
-import cn.lizhentao.rpc.serializer.CommonSerializer;
-
 /**
  * @author lzt
  * @date 2023/3/8 21:18

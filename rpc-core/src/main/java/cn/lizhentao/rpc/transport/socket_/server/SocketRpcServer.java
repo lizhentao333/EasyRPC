@@ -7,6 +7,7 @@ import cn.lizhentao.rpc.handler.RequestHandler;
 import cn.lizhentao.rpc.provider.ServiceProvider;
 import cn.lizhentao.rpc.provider.ServiceProviderImpl;
 import cn.lizhentao.rpc.registry.NacosServiceRegistry;
+import cn.lizhentao.rpc.registry.ZooKeeperServiceRegistry;
 import cn.lizhentao.rpc.serializer.CommonSerializer;
 import cn.lizhentao.rpc.transport.RpcServer;
 import cn.lizhentao.rpc.registry.ServiceRegistry;
@@ -44,7 +45,7 @@ public class SocketRpcServer implements RpcServer {
         this.host = host;
         this.port = port;
         threadPool = ThreadPoolFactory.createDefaultThreadPool("socket-rpc-server");
-        this.serviceRegistry = new NacosServiceRegistry();
+        this.serviceRegistry = new ZooKeeperServiceRegistry();
         this.serviceProvider = new ServiceProviderImpl();
         this.serializer = CommonSerializer.getByCode(serializerCode);
     }

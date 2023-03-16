@@ -1,7 +1,6 @@
 package cn.lizhentao.rpc.transport;
 
 import cn.lizhentao.rpc.entity.RpcRequest;
-import cn.lizhentao.rpc.serializer.CommonSerializer;
 
 /**
  * @author lzt

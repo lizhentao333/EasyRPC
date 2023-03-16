@@ -5,8 +5,6 @@ import cn.lizhentao.rpc.util.NacosUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.concurrent.ExecutorService;
-
 /**
  * @author lzt
  * @date 2023/3/11 16:01
