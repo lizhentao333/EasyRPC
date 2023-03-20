@@ -9,7 +9,7 @@
 
 + serialize：将 RPC 请求中的参数、结果等对象进行序列化与反序列化
 
-+ transport：用来进行远程通信，默认使用 Netty NIO 的 TCP 长链接方式。
++ transport：用来进行远程通信，默认使用 Netty NIO 的 TCP 长连接方式。
 
 + cluster：请求时会根据不同的高可用与负载均衡策略选择一个可用的 Server 发起远程调用。
 + common：用于存放一些常量、数据包类型、异常类型等通用数据
